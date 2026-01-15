@@ -3,11 +3,13 @@ using UnityEngine.Pool;
 
 public class EnemySpawner : MonoBehaviour
 {
+    private const float DirectionAngle = 360f;
+
     [SerializeField] private Enemy _prefab;
 
     private int _defaultCapacity = 20;
     private int _maxSize = 100;
-    private int _radius = 50;
+    
 
     public ObjectPool<Enemy> _pool;
 
@@ -69,7 +71,7 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 GetRandomDirection()
     {
-        float randomAngle = Random.Range(0f, 360f);
+        float randomAngle = Random.Range(0f, DirectionAngle);
 
         Vector3 direction = new Vector3(
             Mathf.Cos(randomAngle * Mathf.Deg2Rad),

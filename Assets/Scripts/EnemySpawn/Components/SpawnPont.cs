@@ -6,7 +6,9 @@ public class SpawnPoint : MonoBehaviour
 
     public void Spawn()
     {
-        if (_spawner == null)
+        if (_spawner != null)
+        {
             _spawner.SpawnObject(transform.position);
+        }
     }
 }

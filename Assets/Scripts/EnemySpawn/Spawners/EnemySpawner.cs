@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using System.Collections.Generic;
 
 public class EnemySpawner : MonoBehaviour
 {
     private const float DirectionAngle = 360f;
 
     [SerializeField] private Enemy _prefab;
+    [SerializeField] private List<TargetPoint> _targetPoints;
 
     private int _defaultCapacity = 20;
     private int _maxSize = 100;
@@ -65,7 +67,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Enemy obj = GetObject();
         obj.transform.position = position;
-        obj.SetTargetDirection(GetRandomDirection());
+        obj.SetTargetPoints(_targetPoints);
         return obj;
     }
 

@@ -25,8 +25,10 @@ public class GameMode : MonoBehaviour
             int index = Random.Range(0, _spawnerPoints.Count);
             SpawnPoint spawnPoint = _spawnerPoints[index];
 
-            if(spawnPoint != null)
+            if (spawnPoint != null)
+            {
                 spawnPoint.Spawn();
+            }
 
             yield return _waitForSeconds;
         }

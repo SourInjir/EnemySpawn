@@ -3,20 +3,16 @@ using UnityEngine.Pool;
 
 public class EnemySpawner : MonoBehaviour
 {
-    private const float SpawnDelay = 2.0f;
-
     [SerializeField] private Enemy _prefab;
 
     private int _defaultCapacity = 20;
     private int _maxSize = 100;
     private int _radius = 50;
-    private WaitForSeconds _waitForSeconds;
 
     public ObjectPool<Enemy> _pool;
 
     private void Awake()
     {
-        _waitForSeconds = new WaitForSeconds(SpawnDelay);
         _pool = new ObjectPool<Enemy>(CreatePooledItem, OnTakeFromPool, OnReturnedToPool, OnDestroyPoolItem, true, _defaultCapacity, _maxSize);
 
         for (int i = 0; i < _defaultCapacity; i++)
@@ -24,11 +20,6 @@ public class EnemySpawner : MonoBehaviour
             _pool.Release(CreatePooledItem());
         }
 
-    }
-
-    private void Start()
-    {
-        StartCoroutine(SpawnProcess());
     }
 
     private Enemy CreatePooledItem()
@@ -54,8 +45,7 @@ public class EnemySpawner : MonoBehaviour
 
     public Enemy GetObject()
     {
-        Enemy obj = _pool.Get();
-        return obj;
+        return _pool.Get();
     }
 
     public void ReturnWithDelay(Enemy obj, float delay)
@@ -79,8 +69,8 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 GetRandomDirection()
     {
-    
         float randomAngle = Random.Range(0f, 360f);
+
         Vector3 direction = new Vector3(
             Mathf.Cos(randomAngle * Mathf.Deg2Rad),
             0f,
@@ -88,14 +78,5 @@ public class EnemySpawner : MonoBehaviour
         );
 
         return direction.normalized;
-    }
-
-    protected System.Collections.IEnumerator SpawnProcess()
-    {
-        while (true)
-        {
-            SpawnObject(transform.position);
-            yield return _waitForSeconds;
-        }
     }
 }
